@@ -38,3 +38,10 @@
 /Si.Blog.WebApi/Si.Framework.ToolKit/bin/Debug/net8.0
 /Si.Blog.WebApi/Si.Framework.ToolKit/obj/Debug/net8.0
 /Si.Blog.WebApi/Si.Framework.ToolKit/obj
+/Si.Blog.WebApi/Blog.Infrastructure.Base/bin/Debug/net8.0
+/Si.Blog.WebApi/Blog.infrastructure.Rbac/bin/Debug/net8.0
+/Si.Blog.WebApi/Si.Api.Core/bin/Debug/net8.0
+/Si.Blog.WebApi/Si.Framework.AutoMapper/bin/Debug/net8.0
+/Si.Blog.WebApi/Si.Framework.AutoMapper/obj
+/Si.Blog.WebApi/Si.Framework.Serilog/bin/Debug/net8.0
+/Si.Blog.WebApi/Si.Framework.Serilog/obj
