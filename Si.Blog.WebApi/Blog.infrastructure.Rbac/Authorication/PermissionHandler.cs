@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Si.Application.Rbac.enums;
+﻿using Blog.Infrastructure.Rbac.enums;
+using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
-namespace Blog.Application.Rbac.Authorication
+namespace Blog.Infrastructure.Rbac.Authorication
 {
     public class PermissionHandler : AuthorizationHandler<PermissionRequirement>
     {
@@ -20,9 +20,9 @@ namespace Blog.Application.Rbac.Authorication
             var userPermissions = new List<Permission>();
             foreach (var role in roles)
             {
-                if(Enum.TryParse(role,out Role permission))
+                if (Enum.TryParse(role, out Role permission))
                 {
-                    if(Enum.TryParse(role,out Role parsedRole))
+                    if (Enum.TryParse(role, out Role parsedRole))
                     {
                         userPermissions.AddRange(RolePermissionMapper.GetPermissionForRole(parsedRole));
                     }
@@ -37,7 +37,7 @@ namespace Blog.Application.Rbac.Authorication
                 context.Fail();
             }
             return Task.CompletedTask;
-            
+
         }
 
     }

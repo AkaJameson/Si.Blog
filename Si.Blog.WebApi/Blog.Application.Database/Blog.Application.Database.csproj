@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Blog.infrastructure.Rbac\Blog.Infrastructure.Rbac.csproj" />
+    <ProjectReference Include="..\Si.Framework.EntityFramework\Si.Framework.EntityFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="EntityDto\" />
+  </ItemGroup>
+
 </Project>

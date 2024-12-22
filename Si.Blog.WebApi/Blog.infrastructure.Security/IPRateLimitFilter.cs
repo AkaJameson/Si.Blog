@@ -3,7 +3,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Si.Framework.Base.Abstraction;
 
-namespace Blog.Application.Filter
+namespace Blog.Infrastructure.Security
 {
     public class IpRateLimitFilter : ISiFilter, IAsyncActionFilter
     {

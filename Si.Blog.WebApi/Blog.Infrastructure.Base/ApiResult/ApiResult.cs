@@ -1,4 +1,4 @@
-﻿namespace Blog.Application.ApiResult
+﻿namespace Blog.Infrastructure.Base.ApiResult
 {
     public class ApiResult
     {
@@ -15,5 +15,5 @@
         public int? Total { get; set; }
     }
 
-    
+
 }

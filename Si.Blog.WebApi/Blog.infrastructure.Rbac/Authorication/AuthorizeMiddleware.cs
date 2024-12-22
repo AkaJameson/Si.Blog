@@ -1,8 +1,8 @@
-﻿using Blog.Application.ApiResult;
+﻿using Blog.Infrastructure.Base.ApiResult;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace Blog.Application.Rbac.Authorication
+namespace Blog.Infrastructure.Rbac.Authorication
 {
     public class AuthorizeMiddleware
     {

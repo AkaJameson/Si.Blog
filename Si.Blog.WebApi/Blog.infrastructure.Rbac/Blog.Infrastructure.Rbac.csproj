@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Blog.Infrastructure.Base\Blog.Infrastructure.Base.csproj" />
+    <ProjectReference Include="..\Si.Framework.Base\Si.Framework.Base.csproj" />
   </ItemGroup>
 
 </Project>

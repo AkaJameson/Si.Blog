@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Si.Application.Rbac.enums;
+﻿using Blog.Infrastructure.Rbac.enums;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Blog.Application.Rbac.Authorication
+namespace Blog.Infrastructure.Rbac.Authorication
 {
     public class PermissionRequirement : IAuthorizationRequirement
     {

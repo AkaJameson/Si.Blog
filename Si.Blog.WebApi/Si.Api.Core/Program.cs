@@ -1,15 +1,20 @@
-using Blog.Application.Rbac.JWT;
+using Blog.Infrastructure.Rbac.JWT;
 using Microsoft.AspNetCore.Authorization;
+using Serilog;
 using Si.Framework.Base;
+using Si.Framework.Serilog;
 using Si.Framework.ToolKit;
-
 namespace Api.Core
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            //Ìí¼ÓSerilogÈÕÖ¾
+            LoggerLib.InitLogger();
             var builder = WebApplication.CreateBuilder(args);
+            builder.Logging.ClearProviders();
+            builder.Logging.AddSerilog(Log.Logger);
             builder.WebHost.ConfigureKestrel(options =>
             {
                 var section = builder.Configuration.GetSection("Kestrel");

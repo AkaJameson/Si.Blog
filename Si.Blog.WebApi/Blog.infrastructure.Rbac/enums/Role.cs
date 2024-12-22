@@ -1,4 +1,4 @@
-﻿namespace Si.Application.Rbac.enums
+﻿namespace Blog.Infrastructure.Rbac.enums
 {
     public enum Role
     {

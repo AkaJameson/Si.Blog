@@ -1,8 +1,8 @@
-﻿namespace Blog.Application.ApiResult
+﻿namespace Blog.Infrastructure.Base.ApiResult
 {
     public static class ResultHelper
     {
-        public static ApiResult Success(object data = null,string message = "操作成功")
+        public static ApiResult Success(object data = null, string message = "操作成功")
         {
             return new ApiResult
             {
@@ -11,7 +11,7 @@
                 Data = data
             };
         }
-        public static ApiResult SuccessByPage(int pageSize,int pageIndex,int Total,object data = null,string message = "操作成功")
+        public static ApiResult SuccessByPage(int pageSize, int pageIndex, int Total, object data = null, string message = "操作成功")
         {
             return new ApiResult
             {
@@ -24,7 +24,7 @@
             };
         }
 
-        public static ApiResult Error(StatusCode code,string message = "操作失败")
+        public static ApiResult Error(StatusCode code, string message = "操作失败")
         {
             return new ApiResult
             {

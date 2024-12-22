@@ -1,10 +1,10 @@
-﻿using Blog.Application.ApiResult;
+﻿using Blog.Infrastructure.Base.ApiResult;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Si.Framework.Base.Abstraction;
 using System.Net;
 
-namespace Blog.Application.Filter
+namespace Blog.Infrastructure.Security
 {
     public class ExceptionHandlingFilter : IExceptionFilter, ISiFilter
     {

@@ -4,7 +4,7 @@ namespace Si.Framework.EntityFramework
 {
     public class SiDbContext : DbContext
     {
-        public SiDbContext(DbContextOptions<SiDbContext> options) : base(options)
+        public SiDbContext(DbContextOptions options) : base(options)
         {
         }
         /// <summary>

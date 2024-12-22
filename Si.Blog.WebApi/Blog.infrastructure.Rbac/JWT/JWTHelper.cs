@@ -2,12 +2,12 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Si.Application.Base;
+using Si.Framework.ToolKit;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Blog.Application.Rbac.JWT
+namespace Blog.Infrastructure.Rbac.JWT
 {
     public static class JWTHelper
     {
@@ -53,7 +53,7 @@ namespace Blog.Application.Rbac.JWT
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero,
-                    ValidIssuer =  _issuer,
+                    ValidIssuer = _issuer,
                     ValidAudience = _audience,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey))
                 };
