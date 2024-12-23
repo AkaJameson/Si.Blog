@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Blog.Application.Database\Blog.Application.Database.csproj" />
     <ProjectReference Include="..\Blog.infrastructure.Security\Blog.Infrastructure.Security.csproj" />
     <ProjectReference Include="..\Si.Framework.AutoMapper\Si.Framework.AutoMapper.csproj" />
     <ProjectReference Include="..\Si.Framework.Base\Si.Framework.Base.csproj" />

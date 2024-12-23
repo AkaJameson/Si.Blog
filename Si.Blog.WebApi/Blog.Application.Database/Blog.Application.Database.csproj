@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Si.Framework.AutoMapper\Si.Framework.AutoMapper.csproj" />
     <ProjectReference Include="..\Si.Framework.EntityFramework\Si.Framework.EntityFramework.csproj" />
     <ProjectReference Include="..\Si.Framework.Rbac\Si.Framework.Rbac.csproj" />
   </ItemGroup>

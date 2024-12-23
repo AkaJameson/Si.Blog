@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="ValueObject\" />
+	  <ProjectReference Include="..\Si.Framework.AutoMapper\Si.Framework.AutoMapper.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+	  <ProjectReference Include="..\Si.Framework.EntityFramework\Si.Framework.EntityFramework.csproj" />
+	  <ProjectReference Include="..\Si.Framework.Rbac\Si.Framework.Rbac.csproj" />
+  </ItemGroup>
 </Project>
