@@ -1,6 +1,8 @@
-﻿namespace Blog.Application.Shared.Entity
+﻿using Si.Framework.EntityFramework.Abstraction;
+
+namespace Blog.Application.Shared.Entity
 {
-    public class User
+    public class User: BaseEntity
     {
         /// <summary>
         /// 主键
@@ -10,6 +12,10 @@
         /// 用户名
         /// </summary>
         public string UserName { get; set; }
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public string Gender { get; set; }
         /// <summary>
         /// 头像
         /// </summary>

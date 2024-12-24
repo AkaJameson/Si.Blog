@@ -114,6 +114,5 @@ namespace Si.Framework.EntityFramework.UnitofWork
         Task<int> CountAsync(Expression<Func<T, bool>> predicate = null);
 
         Task<int> SaveChangesAsync();
-
     }
 }

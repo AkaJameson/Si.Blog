@@ -11,7 +11,7 @@ namespace Blog.Application.Domain
 
         public void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>);
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
     }
 }

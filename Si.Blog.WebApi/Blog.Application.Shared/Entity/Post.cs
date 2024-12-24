@@ -1,8 +1,9 @@
 ﻿using Blog.Application.Shared.enums;
+using Si.Framework.EntityFramework.Abstraction;
 
 namespace Blog.Application.Shared.Entity
 {
-    public class Post
+    public class Post: BaseEntity
     {
         /// <summary>
         /// 主键Id

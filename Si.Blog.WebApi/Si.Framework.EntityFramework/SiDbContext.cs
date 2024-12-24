@@ -1,11 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Si.Framework.EntityFramework.Abstraction;
 
 namespace Si.Framework.EntityFramework
 {
     public class SiDbContext : DbContext
     {
-        public SiDbContext(DbContextOptions options) : base(options)
+        private IMediator mediator;
+        public SiDbContext(DbContextOptions options, IMediator mediator) : base(options)
         {
+            this.mediator = mediator;
         }
         /// <summary>
         /// 异步执行事务操作
@@ -70,6 +74,24 @@ namespace Si.Framework.EntityFramework
                     }
                 }
             }
+        }
+        /// <summary>
+        /// 领域事件发布操作
+        /// </summary>
+        /// <param name="acceptAllChangesOnSuccess"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            var domainEntities = this.ChangeTracker.Entries<IDomainEvents>().Where(u => u.Entity.GetAllDomainEvents().Any());
+            var domainEvents = domainEntities.SelectMany(u => u.Entity.GetAllDomainEvents()).ToList();
+            var result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+            foreach (var domainEvent in domainEvents)
+            {
+                await mediator.Publish(domainEvent);
+            }
+            domainEntities.ToList().ForEach(u => u.Entity.ClearAllDomainEvents());
+            return result;
         }
 
     }

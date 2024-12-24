@@ -1,6 +1,8 @@
-﻿namespace Blog.Application.Shared.Entity
+﻿using Si.Framework.EntityFramework.Abstraction;
+
+namespace Blog.Application.Shared.Entity
 {
-    public class Tag
+    public class Tag: BaseEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DomainServices\" />
     <Folder Include="DomainEvents\" />
   </ItemGroup>
 

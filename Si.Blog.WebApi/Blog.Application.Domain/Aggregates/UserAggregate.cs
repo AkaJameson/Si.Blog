@@ -1,15 +1,11 @@
 ﻿using Blog.Application.Shared.Entity;
+using MediatR;
 using Si.Framework.DDDComm.Abstraction;
 using Si.Framework.EntityFramework.UnitofWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Blog.Application.Domain.Aggregates
 {
-    public class UserAggregate
+    public class UserAggregate:AggregateRoot<Guid>
     {
         /// <summary>
         /// 用户
@@ -29,11 +25,15 @@ namespace Blog.Application.Domain.Aggregates
         private IRepository<Post> _postRepository;
         private IRepository<Media> _mediaRepository;
 
-        public UserAggregate(IRepository<User> userRepository, IRepository<Post> postRepository, IRepository<Media> mediaRepository)
+        public UserAggregate(IRepository<User> userRepository
+            , IRepository<Post> postRepository
+            , IRepository<Media> mediaRepository
+            ,IMediator mediator,int userId):base(mediator)
         {
             _userRepository = userRepository;
             _postRepository = postRepository;
             _mediaRepository = mediaRepository;
+            user = _userRepository.GetByIdAsync(userId).Result;
         }
 
     }

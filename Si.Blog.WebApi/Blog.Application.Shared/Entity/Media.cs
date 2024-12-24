@@ -1,6 +1,8 @@
-﻿namespace Blog.Application.Shared.Entity
+﻿using Si.Framework.EntityFramework.Abstraction;
+
+namespace Blog.Application.Shared.Entity
 {
-    public class Media
+    public class Media: BaseEntity
     {
         /// <summary>
         /// 主键

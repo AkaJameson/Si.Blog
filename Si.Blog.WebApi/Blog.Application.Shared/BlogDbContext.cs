@@ -1,6 +1,7 @@
 ﻿using Blog.Application.Shared.Entity;
 using Blog.Application.Shared.EntityConfiguration;
 using Blog.Infrastructure.Rbac.Entity;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Si.Framework.EntityFramework;
 
@@ -8,7 +9,7 @@ namespace Blog.Application.Shared
 {
     public class BlogDbContext : SiDbContext
     {
-        public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
+        public BlogDbContext(DbContextOptions<BlogDbContext> options,IMediator mediator) : base(options,mediator)
         {
         }
 
