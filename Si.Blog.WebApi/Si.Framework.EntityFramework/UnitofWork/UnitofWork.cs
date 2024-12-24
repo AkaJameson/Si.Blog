@@ -2,12 +2,12 @@
 
 namespace Si.Framework.EntityFramework.UnitofWork
 {
-    public class UnitOfWork : IUnitOfWork, IDisposable
+    public class UnitOfWork<TContext> : IUnitOfWork, IDisposable where TContext:SiDbContext
     {
-        private readonly SiDbContext _context;
+        private readonly TContext _context;
         private readonly Dictionary<Type, object> _repositories = new();
 
-        public UnitOfWork(SiDbContext context)
+        public UnitOfWork(TContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }

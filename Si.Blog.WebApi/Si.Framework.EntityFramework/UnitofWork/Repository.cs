@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Si.Framework.EntityFramework;
 using System.Linq.Expressions;
 
 namespace Si.Framework.EntityFramework.UnitofWork

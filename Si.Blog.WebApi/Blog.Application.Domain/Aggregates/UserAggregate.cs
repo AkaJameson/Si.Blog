@@ -25,15 +25,17 @@ namespace Blog.Application.Domain.Aggregates
         private IRepository<Post> _postRepository;
         private IRepository<Media> _mediaRepository;
 
-        public UserAggregate(IRepository<User> userRepository
-            , IRepository<Post> postRepository
-            , IRepository<Media> mediaRepository
-            ,IMediator mediator,int userId):base(mediator)
+        public UserAggregate(IUnitOfWork unitOfWork
+            ,IMediator mediator):base(mediator)
         {
-            _userRepository = userRepository;
-            _postRepository = postRepository;
-            _mediaRepository = mediaRepository;
-            user = _userRepository.GetByIdAsync(userId).Result;
+            _userRepository = unitOfWork.GetRepository<User>();
+            _postRepository = unitOfWork.GetRepository<Post>();
+            _mediaRepository = unitOfWork.GetRepository<Media>();
+        }
+
+        public async Task InitByUserId(int userId)
+        {
+            user = await _userRepository.GetByIdAsync(userId);
         }
 
     }

@@ -14,11 +14,17 @@ namespace Blog.Application.Domain.DomainServices
     {
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Role> _roleRepository;
-        public UserServiceImpl(IRepository<User> userRepository,IRepository<Role> roleRepository)
+        public UserServiceImpl(IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
-            _roleRepository = roleRepository;
+            _userRepository = unitOfWork.GetRepository<User>();
+            _roleRepository = unitOfWork.GetRepository<Role>();
         }
+
+        public Task<ApiResult> ChangePassword(ChangePasswordInfo entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ApiResult> Login(BaseUserInfo entity)
         {
             //如果传参没有加密，则默认加密
@@ -26,7 +32,7 @@ namespace Blog.Application.Domain.DomainServices
             {
                 entity.Password = entity.Password.AESEncrypt();
             }
-            var user = await _userRepository.SingleOrDefaultAsync(u => u.Account == entity.Username && u.PasswordRsa == entity.Password);
+            var user = await _userRepository.SingleOrDefaultAsync(u => u.Account == entity.Account && u.PasswordRsa == entity.Password);
             if (user == null)
                 return ResultHelper.Error(StatusCode.BadRequest, "用户名或密码错误");
             //获取用户角色
@@ -35,8 +41,9 @@ namespace Blog.Application.Domain.DomainServices
             {
                 new Claim(ClaimTypes.Role,role.Id.ToString()),
                 new Claim(ClaimTypes.Email,user.Email??string.Empty),
-                new Claim(ClaimTypes.Gender,user.Gender??string.Empty),
-                new Claim(ClaimTypes.Name,user.UserName??string.Empty)
+                new Claim(ClaimTypes.Gender,user.Gender.GetHashCode().ToString()),
+                new Claim(ClaimTypes.Name,user.UserName??string.Empty),
+                new Claim(ClaimTypes.Sid,user.Id.ToString())
             });
             return ResultHelper.Success(new
             {
@@ -44,9 +51,20 @@ namespace Blog.Application.Domain.DomainServices
                 ExpiresAt = new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeMilliseconds()
             }, "登录成功");
         }
-        public Task<ApiResult> Register(BaseUserInfo entity)
+        public async Task<ApiResult> Register(UserRegisterInfo entity)
         {
-            throw new NotImplementedException();
+            await _userRepository.AddAsync(new User
+            {
+                Account = entity.Account,
+                PasswordRsa = entity.Password.AESEncrypt(),
+                Email = entity.Email,
+                Gender = entity.Gender,
+                UserName = entity.Username
+            });
+            await _userRepository.SaveChangesAsync();
+            return ResultHelper.Success("注册成功");
         }
+
+        
     }
 }

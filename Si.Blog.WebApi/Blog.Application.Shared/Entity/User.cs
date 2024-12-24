@@ -1,4 +1,5 @@
-﻿using Si.Framework.EntityFramework.Abstraction;
+﻿using Blog.Application.Shared.enums;
+using Si.Framework.EntityFramework.Abstraction;
 
 namespace Blog.Application.Shared.Entity
 {
@@ -15,7 +16,7 @@ namespace Blog.Application.Shared.Entity
         /// <summary>
         /// 性别
         /// </summary>
-        public string Gender { get; set; }
+        public Gender Gender { get; set; }
         /// <summary>
         /// 头像
         /// </summary>

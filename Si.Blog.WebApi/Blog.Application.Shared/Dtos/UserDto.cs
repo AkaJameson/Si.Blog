@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Blog.Application.Shared.Entity;
+using Blog.Application.Shared.enums;
 
 namespace Blog.Application.Shared.Dtos
 {
@@ -7,6 +8,7 @@ namespace Blog.Application.Shared.Dtos
     {
         public int Id { get; set; }
         public string UserName { get; set; }
+        public Gender Gender { get; set; }
         public string AvatarPath { get; set; }
         public string Account { get; set; }
         public string Email { get; set; }

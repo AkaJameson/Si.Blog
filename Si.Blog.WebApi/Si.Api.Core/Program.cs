@@ -1,4 +1,4 @@
-using Blog.Application.Database;
+using Blog.Application.Shared;
 using Blog.Infrastructure.Rbac.JWT;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;

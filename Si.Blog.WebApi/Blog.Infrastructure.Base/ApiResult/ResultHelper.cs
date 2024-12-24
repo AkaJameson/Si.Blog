@@ -2,13 +2,21 @@
 {
     public static class ResultHelper
     {
-        public static ApiResult Success(object data = null, string message = "操作成功")
+        public static ApiResult Success(object data, string message = "操作成功")
         {
             return new ApiResult
             {
                 Code = StatusCode.Success,
                 Message = message,
                 Data = data
+            };
+        }
+        public static ApiResult Success(string message = "操作成功")
+        {
+            return new ApiResult
+            {
+                Code = StatusCode.Success,
+                Message = message
             };
         }
         public static ApiResult SuccessByPage(int pageSize, int pageIndex, int Total, object data = null, string message = "操作成功")

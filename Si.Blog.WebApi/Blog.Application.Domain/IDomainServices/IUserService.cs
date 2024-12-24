@@ -1,11 +1,29 @@
-﻿using Blog.Application.Shared.Models;
+﻿using Blog.Application.Shared.Dtos;
+using Blog.Application.Shared.Models;
 using Blog.Infrastructure.Base.ApiResult;
 
 namespace Blog.Application.Domain.IDomainServices
 {
     public interface IUserService
     {
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         Task<ApiResult> Login(BaseUserInfo entity);
-        Task<ApiResult> Register(BaseUserInfo entity);
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        Task<ApiResult> Register(UserRegisterInfo entity);
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        Task<ApiResult> ChangePassword(ChangePasswordInfo entity);
+        Task<ApiResult> EditUserInfo(UserDto entity);
     }
 }
