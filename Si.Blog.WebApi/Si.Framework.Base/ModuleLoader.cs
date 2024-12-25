@@ -10,12 +10,12 @@ namespace Si.Framework.Base
     public static class ModuleLoader
     {
         private static Type[] Module { get; set; }
-        private static List<IModule> SortModules { get; set; } = new List<IModule>();
+        private static List<ISiModule> SortModules { get; set; } = new List<ISiModule>();
 
         static ModuleLoader()
         {
-            Module = AssemblyManager.FindTypes(p => p.IsBaseOn(typeof(IModule)) && p.IsClass && !p.IsAbstract).ToArray();
-            var moduleList = Module?.Select(x => Activator.CreateInstance(x) as IModule)?.Distinct()?
+            Module = AssemblyManager.FindTypes(p => p.IsBaseOn(typeof(ISiModule)) && p.IsClass && !p.IsAbstract).ToArray();
+            var moduleList = Module?.Select(x => Activator.CreateInstance(x) as ISiModule)?.Distinct()?
                .OrderBy(p => p!.Level)?.ToList();
             SortModules = Sort(moduleList);
         }
@@ -31,15 +31,15 @@ namespace Si.Framework.Base
             stopwatch.Stop();
             LogProvider.Info($"加载模块完成，耗时：{stopwatch.ElapsedMilliseconds} 毫秒。");
         }
-        private static List<IModule> Sort(List<IModule> modules)
+        private static List<ISiModule> Sort(List<ISiModule> modules)
         {
             if (modules == null || modules.Count == 0)
             {
-                return new List<IModule>();
+                return new List<ISiModule>();
             }
             var coreModules = modules?.Where(p => p.Level == ModuleLevel.Core).ToList();
             var otherModules = modules?.Where(p => p.Level != ModuleLevel.Core).ToList();
-            var sortedModules = new List<IModule>();
+            var sortedModules = new List<ISiModule>();
             // 1.优先加载无依赖的 Core 模块
             LoadModulesWithoutDependencies(coreModules, sortedModules);
             // 2. 检查 Core 模块的循环依赖
@@ -67,9 +67,9 @@ namespace Si.Framework.Base
         /// <param name="modules"></param>
         /// <param name="loadingModules"></param>
         /// <returns></returns>
-        private static bool CheckForCircularDependencies(List<IModule> modules)
+        private static bool CheckForCircularDependencies(List<ISiModule> modules)
         {
-            var depandencies = new Dictionary<IModule, List<IModule>>();
+            var depandencies = new Dictionary<ISiModule, List<ISiModule>>();
             foreach (var module in modules)
             {
                 var moduleDependencies = GetDependencies(module);
@@ -77,7 +77,7 @@ namespace Si.Framework.Base
             }
             foreach (var module in modules)
             {
-                if (HasCircularDependency(module, depandencies, new HashSet<IModule>()))
+                if (HasCircularDependency(module, depandencies, new HashSet<ISiModule>()))
                 {
                     LogProvider.Error($"模块 {module.GetType().Name} 存在循环依赖,以跳过加载。");
                     modules.Remove(module);
@@ -86,7 +86,7 @@ namespace Si.Framework.Base
             }
             return false;
         }
-        private static bool HasCircularDependency(IModule module, Dictionary<IModule, List<IModule>> dependencies, HashSet<IModule> visitedModules)
+        private static bool HasCircularDependency(ISiModule module, Dictionary<ISiModule, List<ISiModule>> dependencies, HashSet<ISiModule> visitedModules)
         {
             if (visitedModules.Contains(module))
             {
@@ -104,7 +104,7 @@ namespace Si.Framework.Base
             return false;
         }
         // 根据依赖关系加载模块（无依赖的先加载）
-        private static void LoadModulesWithoutDependencies(List<IModule> modules, List<IModule> sortedModules)
+        private static void LoadModulesWithoutDependencies(List<ISiModule> modules, List<ISiModule> sortedModules)
         {
             var modulesWithoutDependencies = modules.Where(m => !GetDependencies(m).Any()).ToList();
             foreach (var module in modulesWithoutDependencies)
@@ -113,9 +113,9 @@ namespace Si.Framework.Base
             }
         }
         // 根据依赖关系加载模块（有依赖的模块，处理依赖关系）
-        private static void LoadModulesWithDependencies(List<IModule> modules, List<IModule> sortedModules)
+        private static void LoadModulesWithDependencies(List<ISiModule> modules, List<ISiModule> sortedModules)
         {
-            var moduleQueue = new Queue<IModule>(modules);
+            var moduleQueue = new Queue<ISiModule>(modules);
             while (moduleQueue.Count > 0)
             {
                 var module = moduleQueue.Dequeue();
@@ -133,23 +133,23 @@ namespace Si.Framework.Base
         }
 
         // 检查模块的依赖是否已加载
-        private static bool AreDependenciesLoaded(IModule module, List<IModule> sortedModules)
+        private static bool AreDependenciesLoaded(ISiModule module, List<ISiModule> sortedModules)
         {
             var dependencies = GetDependencies(module);
             return dependencies.All(dep => sortedModules.Contains(dep));
         }
 
         // 获取模块的所有依赖
-        private static List<IModule> GetDependencies(IModule module)
+        private static List<ISiModule> GetDependencies(ISiModule module)
         {
-            var dependencies = new List<IModule>();
+            var dependencies = new List<ISiModule>();
             var dependencyAttr = module.GetType().GetCustomAttribute<DependencyAttribute>();
 
             if (dependencyAttr != null)
             {
                 foreach (var depType in dependencyAttr.DependencyModule)
                 {
-                    var dependency = (IModule)Activator.CreateInstance(depType);
+                    var dependency = (ISiModule)Activator.CreateInstance(depType);
                     dependencies.Add(dependency);
                 }
             }

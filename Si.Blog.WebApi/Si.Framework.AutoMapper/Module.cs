@@ -7,7 +7,7 @@ using Si.Framework.ToolKit;
 
 namespace Si.Framework.AutoMapper
 {
-    public class Module : IModule
+    public class Module : ISiModule
     {
         public ModuleLevel Level { get; set; } = ModuleLevel.Core;
         public void RegisterServices(IServiceCollection services)

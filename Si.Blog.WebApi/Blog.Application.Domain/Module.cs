@@ -9,7 +9,7 @@ using Si.Framework.EntityFramework.UnitofWork;
 
 namespace Blog.Application.Domain
 {
-    public class Module : IModule
+    public class Module : ISiModule
     {
         public ModuleLevel Level { get; set; } = ModuleLevel.Application;
 

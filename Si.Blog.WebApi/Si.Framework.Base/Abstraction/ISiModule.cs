@@ -3,7 +3,7 @@ using Si.Framework.Base.Entity;
 
 namespace Si.Framework.Base.Abstraction
 {
-    public interface IModule
+    public interface ISiModule
     {
         public ModuleLevel Level { get; }
         /// <summary>

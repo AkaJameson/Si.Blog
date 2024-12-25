@@ -1,4 +1,5 @@
 ﻿using Blog.Application.Domain.IDomainServices;
+using Blog.Application.Shared.Dtos;
 using Blog.Application.Shared.Entity;
 using Blog.Application.Shared.Models;
 using Blog.Infrastructure.Base.ApiResult;
@@ -20,11 +21,7 @@ namespace Blog.Application.Domain.DomainServices
             _roleRepository = unitOfWork.GetRepository<Role>();
         }
 
-        public Task<ApiResult> ChangePassword(ChangePasswordInfo entity)
-        {
-            throw new NotImplementedException();
-        }
-
+    
         public async Task<ApiResult> Login(BaseUserInfo entity)
         {
             //如果传参没有加密，则默认加密
@@ -65,6 +62,5 @@ namespace Blog.Application.Domain.DomainServices
             return ResultHelper.Success("注册成功");
         }
 
-        
     }
 }

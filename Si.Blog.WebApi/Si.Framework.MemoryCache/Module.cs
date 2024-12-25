@@ -5,7 +5,7 @@ using Si.Framework.MemoryCache.Services;
 
 namespace Si.Framework.MemoryCache
 {
-    public class Module : IModule
+    public class Module : ISiModule
     {
         public ModuleLevel Level { get; set; } = ModuleLevel.Core;
 

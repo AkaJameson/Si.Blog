@@ -5,7 +5,7 @@ using Si.Framework.MailToolKit.MailService;
 
 namespace Si.Framework.MailToolKit
 {
-    public class Module : IModule
+    public class Module : ISiModule
     {
         public ModuleLevel Level { get; set; } = ModuleLevel.Application;
 

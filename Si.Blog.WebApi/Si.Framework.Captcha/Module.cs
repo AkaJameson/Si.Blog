@@ -4,7 +4,7 @@ using Si.Framework.Base.Entity;
 
 namespace Si.Framework.Captcha
 {
-    public class Module : IModule
+    public class Module : ISiModule
     {
         public ModuleLevel Level { get; set; } = ModuleLevel.Core;
 

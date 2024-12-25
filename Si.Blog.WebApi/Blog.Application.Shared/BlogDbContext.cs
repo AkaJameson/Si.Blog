@@ -11,8 +11,9 @@ namespace Blog.Application.Shared
     {
         public BlogDbContext(DbContextOptions<BlogDbContext> options,IMediator mediator) : base(options,mediator)
         {
+            DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
-
+        
         public DbSet<Entity.Post> Blogs { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }

@@ -18,12 +18,5 @@ namespace Blog.Application.Domain.IDomainServices
         /// <param name="entity"></param>
         /// <returns></returns>
         Task<ApiResult> Register(UserRegisterInfo entity);
-        /// <summary>
-        /// 修改密码
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        Task<ApiResult> ChangePassword(ChangePasswordInfo entity);
-        Task<ApiResult> EditUserInfo(UserDto entity);
     }
 }
