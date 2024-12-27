@@ -2,11 +2,11 @@ using Blog.Application.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using Si.Framework.Base;
 using Si.Framework.Base.Extension;
 using Si.Framework.Base.Utility;
-using Si.Framework.Rbac.JWT;
 using Si.Framework.Serilog;
 namespace Api.Core
 {
@@ -25,6 +25,17 @@ namespace Api.Core
             {
                 var section = builder.Configuration.GetSection("Kestrel");
                 options.Configure(section);
+            });
+            // 注册 Swagger 生成器服务
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "My API",
+                    Version = "v1",
+                    Description = "BlogAPI"
+                });
             });
             //添加hsts
             builder.Services.AddHsts(options =>
@@ -67,6 +78,16 @@ namespace Api.Core
                 FileProvider = new PhysicalFileProvider(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "wwwroot")),
                 RequestPath = "/resources"
             });
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    // 配置 Swagger UI 的路径（可选）
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Blog API v1");
+                    options.RoutePrefix = string.Empty; // 使 Swagger UI 在根路径显示
+                });
+            }
             app.MapControllers();
             app.Run();
         }
