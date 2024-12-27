@@ -1,6 +1,7 @@
-﻿using Blog.Infrastructure.Rbac.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using Si.Framework.Rbac.Entity;
 
-namespace Blog.Infrastructure.Rbac.Authorication
+namespace Si.Framework.Rbac.Authorication
 {
     public class RolePermissionMapper
     {
@@ -9,15 +10,23 @@ namespace Blog.Infrastructure.Rbac.Authorication
         {
             return _rolePermissionMap.ContainsKey(roleId) ? _rolePermissionMap[roleId] : new List<Permission>();
         }
-        public static void AddPermissionForRole(string roleId, List<Permission> permissions)
+        private static void AddPermissionForRole(string roleId, List<Permission> permissions)
         {
             _rolePermissionMap[roleId] = permissions;
         }
-
-        public static void LoadRbacRelationship(Func<Dictionary<string, List<Permission>>> rolePermissionMap)
+         public static void RegisterRolePermission<TDbContext>(TDbContext dbContext) where TDbContext : DbContext
         {
-            _rolePermissionMap.Clear();
-            _rolePermissionMap = rolePermissionMap?.Invoke();
+
+            var roleWithPermissions = dbContext.Set<RolePermission>().ToList().GroupBy(rp => rp.RoleId).ToDictionary(g => g.Key, g => g.Select(rp => rp.PermissionId).ToList());
+            var allPermissions = dbContext.Set<Permission>().ToList();
+            foreach (var rolePermission in roleWithPermissions)
+            {
+                ///获取角色对应的权限
+                var rolesPermissions = allPermissions.Where(p => rolePermission.Value.Contains(p.Id)).ToList();
+                AddPermissionForRole(rolePermission.Key.ToString(), rolesPermissions);
+            }
+            return;
+
         }
     }
 }

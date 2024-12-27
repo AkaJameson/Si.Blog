@@ -11,10 +11,12 @@ namespace Blog.Application.Domain
 {
     public class Module : ISiModule
     {
+        
         public ModuleLevel Level { get; set; } = ModuleLevel.Application;
 
         public void RegisterServices(IServiceCollection services)
         {
+
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork<BlogDbContext>));
             services.AddScoped<IUserService, UserServiceImpl>();
             services.AddScoped<UserAggregate>();

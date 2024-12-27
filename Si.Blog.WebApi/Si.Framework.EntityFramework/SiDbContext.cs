@@ -6,10 +6,14 @@ namespace Si.Framework.EntityFramework
 {
     public class SiDbContext : DbContext
     {
-        private IMediator mediator;
+        private IMediator? mediator;
         public SiDbContext(DbContextOptions options, IMediator mediator) : base(options)
         {
             this.mediator = mediator;
+        }
+        public SiDbContext (DbContextOptions options)
+        {
+            this.mediator = null;
         }
         /// <summary>
         /// 异步执行事务操作
@@ -64,7 +68,7 @@ namespace Si.Framework.EntityFramework
                     await transaction.CommitAsync();
                     break;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                     await transaction.RollbackAsync();

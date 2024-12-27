@@ -1,8 +1,8 @@
-﻿using Blog.Infrastructure.Rbac.Entity;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Si.Framework.Rbac.Entity;
 using System.Security.Claims;
 
-namespace Blog.Infrastructure.Rbac.Authorication
+namespace Si.Framework.Rbac.Authorication
 {
     public class PermissionHandler : AuthorizationHandler<PermissionRequirement>
     {
@@ -20,10 +20,10 @@ namespace Blog.Infrastructure.Rbac.Authorication
             var userPermissions = new List<Permission>();
             foreach (var role in rolesId)
             {
-               
+
                 var rolePermissions = RolePermissionMapper.GetPermissionForRole(role);
             }
-            if (userPermissions.Any(p=>p.Id == requirement.RequiredPermissionId))
+            if (userPermissions.Any(p => p.Id == requirement.RequiredPermissionId))
             {
                 context.Succeed(requirement);
             }

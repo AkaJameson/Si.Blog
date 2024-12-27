@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Si.Framework.AutoMapper.MapServices;
 using Si.Framework.Base.Abstraction;
 using Si.Framework.Base.Entity;
-using Si.Framework.ToolKit;
+using Si.Framework.Base.Utility;
 
 namespace Si.Framework.AutoMapper
 {

@@ -1,6 +1,6 @@
-﻿using Blog.Infrastructure.Rbac.Entity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Si.Framework.Rbac.Entity;
 
 namespace Blog.Application.Shared.EntityConfiguration
 {

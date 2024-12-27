@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace Blog.Infrastructure.Rbac.Authorication
+namespace Si.Framework.Rbac.Authorication
 {
     public class AuthorizeMiddleware
     {

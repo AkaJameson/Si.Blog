@@ -1,4 +1,4 @@
-﻿namespace Blog.Infrastructure.Rbac.Entity
+﻿namespace Si.Framework.Rbac.Entity
 {
     public class Permission
     {

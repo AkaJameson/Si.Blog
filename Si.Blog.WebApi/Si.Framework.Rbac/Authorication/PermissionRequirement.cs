@@ -1,7 +1,7 @@
-﻿using Blog.Infrastructure.Rbac.Entity;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Si.Framework.Rbac.Entity;
 
-namespace Blog.Infrastructure.Rbac.Authorication
+namespace Si.Framework.Rbac.Authorication
 {
     public class PermissionRequirement : IAuthorizationRequirement
     {

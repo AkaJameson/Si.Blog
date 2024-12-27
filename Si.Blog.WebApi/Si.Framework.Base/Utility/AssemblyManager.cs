@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyModel;
 using System.Reflection;
 
-namespace Si.Framework.ToolKit
+namespace Si.Framework.Base.Utility
 {
     /// <summary>
     /// 程序集管理器

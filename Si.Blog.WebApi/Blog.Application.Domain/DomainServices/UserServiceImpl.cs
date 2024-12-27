@@ -1,11 +1,10 @@
 ﻿using Blog.Application.Domain.IDomainServices;
-using Blog.Application.Shared.Dtos;
 using Blog.Application.Shared.Entity;
 using Blog.Application.Shared.Models;
 using Blog.Infrastructure.Base.ApiResult;
-using Blog.Infrastructure.Rbac.Entity;
-using Blog.Infrastructure.Rbac.JWT;
 using Si.Framework.EntityFramework.UnitofWork;
+using Si.Framework.Rbac.Entity;
+using Si.Framework.Rbac.JWT;
 using Si.Framework.ToolKit.Extension;
 using System.Security.Claims;
 
@@ -20,8 +19,6 @@ namespace Blog.Application.Domain.DomainServices
             _userRepository = unitOfWork.GetRepository<User>();
             _roleRepository = unitOfWork.GetRepository<Role>();
         }
-
-    
         public async Task<ApiResult> Login(BaseUserInfo entity)
         {
             //如果传参没有加密，则默认加密

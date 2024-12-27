@@ -6,7 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Blog.Infrastructure.Rbac.JWT
+namespace Si.Framework.Rbac.JWT
 {
     public static class JWTHelper
     {
@@ -32,7 +32,7 @@ namespace Blog.Infrastructure.Rbac.JWT
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public static void AddJWTBearer(this IServiceCollection services,IConfiguration configuration)
+        public static void AddJWTBearer(this IServiceCollection services, IConfiguration configuration)
         {
             _secretKey = configuration["JWT:SecretKey"];
             _issuer = configuration["JWT:Issuer"];

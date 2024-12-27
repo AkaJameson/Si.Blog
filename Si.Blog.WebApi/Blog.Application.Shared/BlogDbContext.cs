@@ -1,19 +1,22 @@
 ﻿using Blog.Application.Shared.Entity;
 using Blog.Application.Shared.EntityConfiguration;
-using Blog.Infrastructure.Rbac.Entity;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Si.Framework.EntityFramework;
+using Si.Framework.Rbac.Entity;
 
 namespace Blog.Application.Shared
 {
     public class BlogDbContext : SiDbContext
     {
+        private readonly string connectionString;
         public BlogDbContext(DbContextOptions<BlogDbContext> options,IMediator mediator) : base(options,mediator)
         {
-            DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
-        
+        public BlogDbContext(DbContextOptions<BlogDbContext> options,string connectionString) : base(options)
+        {
+            this.connectionString = connectionString;
+        }
         public DbSet<Entity.Post> Blogs { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -25,7 +28,6 @@ namespace Blog.Application.Shared
         public DbSet<Role> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new BlogCategoryConfiguration());
@@ -39,6 +41,13 @@ namespace Blog.Application.Shared
             modelBuilder.ApplyConfiguration(new RolePermissionConfiguration());
             modelBuilder.ApplyConfiguration(new TagConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite(connectionString);
+            }
         }
     }
 }

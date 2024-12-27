@@ -1,4 +1,4 @@
-﻿namespace Blog.Infrastructure.Rbac.Entity
+﻿namespace Si.Framework.Rbac.Entity
 {
     public class Role
     {
@@ -6,6 +6,6 @@
         public string RoleName { get; set; }
         public string Description { get; set; }
         public DateTime CreateTime { get; set; }
-        
+
     }
 }

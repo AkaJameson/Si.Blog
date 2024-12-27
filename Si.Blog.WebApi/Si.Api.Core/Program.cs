@@ -1,12 +1,13 @@
 using Blog.Application.Shared;
-using Blog.Infrastructure.Rbac.JWT;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Serilog;
 using Si.Framework.Base;
+using Si.Framework.Base.Extension;
+using Si.Framework.Base.Utility;
+using Si.Framework.Rbac.JWT;
 using Si.Framework.Serilog;
-using Si.Framework.ToolKit;
 namespace Api.Core
 {
     public class Program
@@ -32,12 +33,9 @@ namespace Api.Core
                 options.IncludeSubDomains = true;
                 options.MaxAge = TimeSpan.FromDays(60);
             });
-            var connectionStr = builder.Configuration.GetConnectionString("DefaultConnection");
-            builder.Services.AddDbContext<BlogDbContext>(options=>options.UseSqlite(connectionStr));
+            builder.Services.AddDbContext<BlogDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
             //×¢²áÉÏÏÂÎÄ·ÃÎÊÆ÷
             builder.Services.AddHttpContextAccessor();
-            //×¢²áJWTÑéÖ¤
-            builder.Services.AddJWTBearer(builder.Configuration);
             //ÅäÖÃ¿çÓò
             builder.Services.AddCors(options =>
             {
@@ -62,6 +60,8 @@ namespace Api.Core
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMiddleware<AuthorizationMiddleware>();
+            var staticFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "wwwroot");
+            Directory.CreateDirectory(staticFilePath);
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "wwwroot")),
@@ -70,5 +70,7 @@ namespace Api.Core
             app.MapControllers();
             app.Run();
         }
+
+       
     }
 }

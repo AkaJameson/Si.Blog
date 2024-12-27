@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Configuration;
 using Si.Framework.Base.Abstraction;
-using Si.Framework.ToolKit;
+using Si.Framework.Base.Utility;
 using Si.Framework.ToolKit.Extension;
 
-namespace Si.Framework.Base
+namespace Si.Framework.Base.Extension
 {
     public static class WebPipeExtension
     {
@@ -20,12 +19,6 @@ namespace Si.Framework.Base
                 options.Filters.Add((IFilterMetadata)filter);
             }
             return options;
-        }
-
-        public static void AddSettings(this ConfigurationManager configuration)
-        {
-            configuration.AddJsonFile($"{Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json")}"
-                , optional: true, reloadOnChange: true);
         }
     }
 }

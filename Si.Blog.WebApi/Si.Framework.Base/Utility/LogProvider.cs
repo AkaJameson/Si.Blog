@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Si.Framework.ToolKit
+namespace Si.Framework.Base.Utility
 {
     /// <summary>
     /// 仅记录框架加载时的错误日志信息
@@ -10,7 +10,7 @@ namespace Si.Framework.ToolKit
         private static ReaderWriterLockSlim LogWriteLock = new ReaderWriterLockSlim();
         // 日志路径和文件名
         private static readonly string logDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "logs");
-        private static readonly string logFileName = "SiWebApiInternal.txt";
+        private static readonly string logFileName = "SiWebApiInternal.log";
         /// <summary>
         /// 输出 info 级别日志
         /// </summary>
@@ -55,7 +55,7 @@ namespace Si.Framework.ToolKit
                 // 写入日志
                 using (StreamWriter writer = File.AppendText(fullFilePath))
                 {
-                    writer.WriteLine($"{now:yyyy-MM-dd HH:mm:ss} >> {level} >> {message}");
+                    writer.WriteLine($" [{now.ToString("yyyy-MM-dd HH:mm:ss.fff")}]  {level} \n {message}\n");
                 }
             }
             catch (Exception ex)

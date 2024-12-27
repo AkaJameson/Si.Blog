@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Si.Framework.Base.Abstraction;
 using Si.Framework.Base.Entity;
-using Si.Framework.ToolKit;
+using Si.Framework.Base.Utility;
 
 namespace Si.Framework.DDDComm
 {
