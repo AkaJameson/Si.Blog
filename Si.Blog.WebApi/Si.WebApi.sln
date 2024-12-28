@@ -49,6 +49,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Si.Framework.AutoMapper", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Si.Framework.Serilog", "Si.Framework.Serilog\Si.Framework.Serilog.csproj", "{3CC3AC6A-3FC9-48D8-AC04-3A643FFD9887}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{F6D0D1F2-6035-424A-AD1D-45A7A99B4F0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +129,10 @@ Global
 		{3CC3AC6A-3FC9-48D8-AC04-3A643FFD9887}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CC3AC6A-3FC9-48D8-AC04-3A643FFD9887}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CC3AC6A-3FC9-48D8-AC04-3A643FFD9887}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6D0D1F2-6035-424A-AD1D-45A7A99B4F0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6D0D1F2-6035-424A-AD1D-45A7A99B4F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6D0D1F2-6035-424A-AD1D-45A7A99B4F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6D0D1F2-6035-424A-AD1D-45A7A99B4F0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -152,6 +158,7 @@ Global
 		{A15E1F76-7DD3-4F4C-A389-34545896C5B2} = {8479376E-B22C-45B6-986E-1408BE2D108B}
 		{598BD3C4-71D2-442A-8629-12A5F9EF9047} = {BD7FA176-A759-42F5-A31F-AA5443CCE911}
 		{3CC3AC6A-3FC9-48D8-AC04-3A643FFD9887} = {BD7FA176-A759-42F5-A31F-AA5443CCE911}
+		{F6D0D1F2-6035-424A-AD1D-45A7A99B4F0C} = {835D4F72-68C5-47AD-9EB4-3CD58F19EB44}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14778ACD-09FC-4D71-857C-B9899E3D38FE}

@@ -5,7 +5,6 @@ using Si.Framework.Base.Utility;
 using Si.Framework.ToolKit.Extension;
 using System.Diagnostics;
 using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 namespace Si.Framework.Base
 {
     public static class ModuleLoader

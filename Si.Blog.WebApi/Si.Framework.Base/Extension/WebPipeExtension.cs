@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.DependencyInjection;
 using Si.Framework.Base.Abstraction;
 using Si.Framework.Base.Utility;
 using Si.Framework.ToolKit.Extension;
@@ -12,7 +13,7 @@ namespace Si.Framework.Base.Extension
         {
             var filters = AssemblyManager.FindTypesByBase<ISiFilter>()
                             .Where(t => t.IsClass && !t.IsAbstract && t.IsBaseOn(typeof(IFilterMetadata)))
-                            .Select(t => (ISiFilter)Activator.CreateInstance(t)!)?
+                            .Select(t => (ISiFilter)ActivatorUtilities.CreateInstance(ServiceLocator.GetServiceProvider(),t)!)?
                             .OrderBy(t => t.Order);
             foreach (var filter in filters)
             {

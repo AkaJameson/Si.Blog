@@ -11,7 +11,6 @@ namespace Blog.Application.Shared.EntityConfiguration
             builder.HasKey(bc => new { bc.CategoryId, bc.BlogId });
             builder.Property(bc => bc.CategoryId)
                    .IsRequired();
-
             builder.Property(bc => bc.BlogId)
                    .IsRequired();
         }

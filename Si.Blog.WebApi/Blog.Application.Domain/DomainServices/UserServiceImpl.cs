@@ -1,5 +1,6 @@
 ﻿using Blog.Application.Domain.IDomainServices;
 using Blog.Application.Shared.Entity;
+using Blog.Application.Shared.enums;
 using Blog.Application.Shared.Models;
 using Blog.Infrastructure.Base.ApiResult;
 using Si.Framework.EntityFramework.UnitofWork;
@@ -22,7 +23,7 @@ namespace Blog.Application.Domain.DomainServices
         public async Task<ApiResult> Login(BaseUserInfo entity)
         {
             //如果传参没有加密，则默认加密
-            if(entity.Encrypted.HasValue && !entity.Encrypted.Value)
+            if (entity.Encrypted.HasValue && !entity.Encrypted.Value)
             {
                 entity.Password = entity.Password.AESEncrypt();
             }
@@ -30,8 +31,8 @@ namespace Blog.Application.Domain.DomainServices
             if (user == null)
                 return ResultHelper.Error(StatusCode.BadRequest, "用户名或密码错误");
             //获取用户角色
-            var role = await _roleRepository.SingleOrDefaultAsync(r => r.Id == user.RoleId);
-            var _token = JWTHelper.GenerateToken(user.UserName, new List<Claim>
+            var role = await _roleRepository.SingleOrDefaultAsync(r => r.Id == user.Role.GetHashCode());
+            var _token = JWTHelper.GenerateToken(user.Id, new List<Claim>
             {
                 new Claim(ClaimTypes.Role,role.Id.ToString()),
                 new Claim(ClaimTypes.Email,user.Email??string.Empty),
@@ -53,10 +54,14 @@ namespace Blog.Application.Domain.DomainServices
                 PasswordRsa = entity.Password.AESEncrypt(),
                 Email = entity.Email,
                 Gender = entity.Gender,
-                UserName = entity.Username
+                UserName = entity.Username,
+                Role = RoleEnum.User
             });
-            await _userRepository.SaveChangesAsync();
-            return ResultHelper.Success("注册成功");
+            var flag = await _userRepository.SaveChangesAsync();
+            if (flag)
+                return ResultHelper.Success("注册成功");
+            else
+                return ResultHelper.Error(StatusCode.ServiceUnavailable, "操作失败，请联系管理员");
         }
 
     }

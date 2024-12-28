@@ -9,6 +9,7 @@ namespace Blog.Application.Shared.EntityConfiguration
         public void Configure(EntityTypeBuilder<Tag> builder)
         {
             builder.HasKey(t => t.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(t => t.Name).HasMaxLength(100).IsRequired();
             builder.Property(t => t.Description).HasMaxLength(200);
         }

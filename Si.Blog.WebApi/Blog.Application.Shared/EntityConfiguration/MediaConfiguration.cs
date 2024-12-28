@@ -9,6 +9,7 @@ namespace Blog.Application.Shared.EntityConfiguration
         public void Configure(EntityTypeBuilder<Media> builder)
         {
             builder.HasKey(m => m.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(m => m.Title).HasMaxLength(200).IsRequired();
             builder.Property(m => m.Content).HasMaxLength(1000).IsRequired();
             builder.Property(m => m.UserId).IsRequired();

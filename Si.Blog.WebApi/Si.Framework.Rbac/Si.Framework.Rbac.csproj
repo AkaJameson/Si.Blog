@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Blog.Infrastructure.Base\Blog.Infrastructure.Base.csproj" />
     <ProjectReference Include="..\Si.Framework.Base\Si.Framework.Base.csproj" />
+    <ProjectReference Include="..\Si.Framework.Serilog\Si.Framework.Serilog.csproj" />
   </ItemGroup>
 
 </Project>

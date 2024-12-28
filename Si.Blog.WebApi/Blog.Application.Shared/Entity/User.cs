@@ -20,7 +20,7 @@ namespace Blog.Application.Shared.Entity
         /// <summary>
         /// 头像
         /// </summary>
-        public string AvatarPath { get; set; }
+        public string? AvatarPath { get; set; }
         /// <summary>
         /// 账户名
         /// </summary>
@@ -32,18 +32,18 @@ namespace Blog.Application.Shared.Entity
         /// <summary>
         /// 密码盐值
         /// </summary>
-        public string Stamp { get; set; }
+        public string? Stamp { get; set; }
         /// <summary>
         /// 角色
         /// </summary>
-        public int RoleId { get; set; }
+        public RoleEnum Role { get; set; }
         /// <summary>
         /// 邮箱
         /// </summary>
-        public string Email { get; set; }
-        public string Reserve1 { get; set; }
-        public string Reserve2 { get; set; }
-        public string Reserve3 { get; set; }
+        public string? Email { get; set; }
+        public string? Reserve1 { get; set; }
+        public string? Reserve2 { get; set; }
+        public string? Reserve3 { get; set; }
         public DateTime CreateTime { get; set; }
 
     }

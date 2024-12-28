@@ -135,11 +135,6 @@ namespace Si.Framework.EntityFramework.UnitofWork
 
             return await _dbSet.CountAsync(predicate);
         }
-        public async Task<int> SaveChangesAsync()
-        {
-            return await _dbContext.SaveChangesAsync();
-        }
-
         public async Task<T> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
@@ -155,6 +150,14 @@ namespace Si.Framework.EntityFramework.UnitofWork
         {
             _dbSet.UpdateRange(entities);
             return Task.CompletedTask;
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            if (await _dbContext.SaveChangesAsync() > 0)
+                return true;
+            else
+                return false;
         }
     }
 }

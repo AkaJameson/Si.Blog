@@ -18,8 +18,8 @@ namespace Blog.Application.Shared.Models
         public string Account { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public bool? Encrypted { get; set; }
         public Gender Gender { get; set; }
+        public RoleEnum Role { get; set; }
     }
     /// <summary>
     /// 修改密码信息

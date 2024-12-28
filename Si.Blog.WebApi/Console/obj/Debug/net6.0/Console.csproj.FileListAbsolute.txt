@@ -1,0 +1,5 @@
+C:\Project\Si.blog\Si.Blog\Si.Blog.WebApi\Console\obj\Debug\net6.0\Console.GeneratedMSBuildEditorConfig.editorconfig
+C:\Project\Si.blog\Si.Blog\Si.Blog.WebApi\Console\obj\Debug\net6.0\Console.AssemblyInfoInputs.cache
+C:\Project\Si.blog\Si.Blog\Si.Blog.WebApi\Console\obj\Debug\net6.0\Console.AssemblyInfo.cs
+C:\Project\Si.blog\Si.Blog\Si.Blog.WebApi\Console\obj\Debug\net6.0\Console.csproj.CoreCompileInputs.cache
+C:\Project\Si.blog\Si.Blog\Si.Blog.WebApi\Console\obj\Debug\net6.0\Console.sourcelink.json

@@ -11,7 +11,7 @@ namespace Si.Framework.Rbac.Authorication
         {
             _next = next;
         }
-        public async Task Invoke(HttpContext httpContext, RequestDelegate next)
+        public async Task Invoke(HttpContext httpContext)
         {
             if (httpContext.Response.StatusCode == 403)
             {
@@ -19,6 +19,7 @@ namespace Si.Framework.Rbac.Authorication
                 await httpContext.Response.WriteAsync
                     (JsonConvert.SerializeObject(ResultHelper.Error(StatusCode.Unauthorized, "权限不足，请联系管理员!")));
             }
+            await _next(httpContext);
         }
     }
 }

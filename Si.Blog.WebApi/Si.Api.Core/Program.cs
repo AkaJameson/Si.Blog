@@ -1,4 +1,5 @@
 using Blog.Application.Shared;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -7,6 +8,8 @@ using Serilog;
 using Si.Framework.Base;
 using Si.Framework.Base.Extension;
 using Si.Framework.Base.Utility;
+using Si.Framework.Rbac.Authorication;
+using Si.Framework.Rbac.JWT;
 using Si.Framework.Serilog;
 namespace Api.Core
 {
@@ -36,6 +39,14 @@ namespace Api.Core
                     Version = "v1",
                     Description = "BlogAPI"
                 });
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    BearerFormat = "JWT",
+                    Description = "请输入 Bearer 跟随你的 JWT token，例如: `Bearer your_token_here`"
+                });
             });
             //添加hsts
             builder.Services.AddHsts(options =>
@@ -59,18 +70,41 @@ namespace Api.Core
             });
             //注册模块
             ModuleLoader.LoadModules(builder.Services);
+            var tokenValidationParameters = JWTHelper.GetTokenValidation();
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = tokenValidationParameters;
+            });
+            builder.Services.AddAuthorization(options =>
+            {
+                //读取数据库配置
+                using var blogDbContext = new BlogDbContext(new DbContextOptionsBuilder<BlogDbContext>().Options, ServiceLocator.GetConfiguration()["ConnectionStrings:DefaultConnection"]);
+                RolePermissionMapper.RegisterRolePermission<BlogDbContext>(blogDbContext);
+                //管理员
+                options.AddPolicy("Admin", policy => RolePermissionMapper.GetPermissionForRole("0").ForEach(p => policy.Requirements.Add(new PermissionRequirement(p))));
+                //访客
+                options.AddPolicy("Guest", policy => RolePermissionMapper.GetPermissionForRole("1").ForEach(p => policy.Requirements.Add(new PermissionRequirement(p))));
+                //普通用户
+                options.AddPolicy("User", policy => RolePermissionMapper.GetPermissionForRole("2").ForEach(p => policy.Requirements.Add(new PermissionRequirement(p))));
+            });
             builder.Services.AddControllers(options =>
             {
                 WebPipeExtension.AddFilter(options);
+            }).AddJsonOptions(options =>
+            {
+                //忽略null值
+                options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
             });
+            
             var app = builder.Build();
             ServiceLocator.SetServiceProvider(app.Services);
             app.UseRouting();
-            app.UseCors("CorPolicy");
-            app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseMiddleware<AuthorizationMiddleware>();
+            app.UseCors("CorPolicy");
+            app.UseHttpsRedirection();
+            app.UseMiddleware<AuthorizeMiddleware>();
             var staticFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "wwwroot");
             Directory.CreateDirectory(staticFilePath);
             app.UseStaticFiles(new StaticFileOptions
@@ -88,7 +122,10 @@ namespace Api.Core
                     options.RoutePrefix = string.Empty; // 使 Swagger UI 在根路径显示
                 });
             }
-            app.MapControllers();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
             app.Run();
         }
 

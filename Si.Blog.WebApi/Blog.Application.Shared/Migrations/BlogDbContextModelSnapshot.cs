@@ -82,15 +82,12 @@ namespace Blog.Application.Shared.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Reserve1")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Reserve2")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Reserve3")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
@@ -213,7 +210,6 @@ namespace Blog.Application.Shared.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("AvatarPath")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
@@ -221,7 +217,6 @@ namespace Blog.Application.Shared.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
@@ -234,22 +229,18 @@ namespace Blog.Application.Shared.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Reserve1")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Reserve2")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Reserve3")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int>("Role")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Stamp")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
@@ -263,7 +254,7 @@ namespace Blog.Application.Shared.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Blog.Infrastructure.Rbac.Entity.Permission", b =>
+            modelBuilder.Entity("Si.Framework.Rbac.Entity.Permission", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -286,7 +277,7 @@ namespace Blog.Application.Shared.Migrations
                     b.ToTable("Permissions");
                 });
 
-            modelBuilder.Entity("Blog.Infrastructure.Rbac.Entity.Role", b =>
+            modelBuilder.Entity("Si.Framework.Rbac.Entity.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -309,7 +300,7 @@ namespace Blog.Application.Shared.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("Blog.Infrastructure.Rbac.Entity.RolePermission", b =>
+            modelBuilder.Entity("Si.Framework.Rbac.Entity.RolePermission", b =>
                 {
                     b.Property<int>("RoleId")
                         .HasColumnType("INTEGER");

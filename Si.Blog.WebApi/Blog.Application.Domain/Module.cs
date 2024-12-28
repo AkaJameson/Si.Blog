@@ -20,6 +20,7 @@ namespace Blog.Application.Domain
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork<BlogDbContext>));
             services.AddScoped<IUserService, UserServiceImpl>();
             services.AddScoped<UserAggregate>();
+            services.AddScoped<IAdminService, AdminServiceImpl>();
 
         }
     }

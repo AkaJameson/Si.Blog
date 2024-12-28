@@ -21,7 +21,7 @@ namespace Si.Framework.Rbac.Authorication
             foreach (var role in rolesId)
             {
 
-                var rolePermissions = RolePermissionMapper.GetPermissionForRole(role);
+                userPermissions = RolePermissionMapper.GetPermissionForRole(role);
             }
             if (userPermissions.Any(p => p.Id == requirement.RequiredPermissionId))
             {

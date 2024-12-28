@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Si.Framework.Base.Abstraction;
+using Si.Framework.Serilog;
 using System.Net;
 
 namespace Blog.Infrastructure.Security
@@ -18,6 +19,7 @@ namespace Blog.Infrastructure.Security
                 statusCode = (int)HttpStatusCode.BadRequest;
             }
             // 返回统一的错误响应
+            LogHub.Error(context.Exception.ToString());
             context.Result = new JsonResult(ResultHelper.Error(StatusCode.Unauthorized, "服务器内部错误"));
             context.ExceptionHandled = true;
         }

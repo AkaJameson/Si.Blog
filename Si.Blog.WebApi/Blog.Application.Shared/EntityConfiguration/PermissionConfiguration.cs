@@ -9,6 +9,7 @@ namespace Blog.Application.Shared.EntityConfiguration
         public void Configure(EntityTypeBuilder<Permission> builder)
         {
             builder.HasKey(p => p.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(p => p.PermissionName).HasMaxLength(100).IsRequired();
             builder.Property(p => p.Description).HasMaxLength(200).IsRequired(false);
             builder.Property(p => p.CreateTime).IsRequired();

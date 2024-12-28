@@ -7,6 +7,7 @@ namespace Blog.Application.Shared.EntityConfiguration
         public void Configure(EntityTypeBuilder<Entity.Post> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Title).HasMaxLength(200).IsRequired();
             builder.Property(x => x.Views).IsRequired();
             builder.Property(x => x.Content).IsRequired();
