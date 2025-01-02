@@ -1,16 +1,15 @@
 using Blog.Application.Shared;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Si.Framework.Base;
 using Si.Framework.Base.Extension;
+using Si.Framework.Base.Serilog;
 using Si.Framework.Base.Utility;
 using Si.Framework.Rbac.Authorication;
 using Si.Framework.Rbac.JWT;
-using Si.Framework.Serilog;
 namespace Api.Core
 {
     public class Program
@@ -46,6 +45,20 @@ namespace Api.Core
                     Type = SecuritySchemeType.ApiKey,
                     BearerFormat = "JWT",
                     Description = "ÇëÊäÈë Bearer ¸úËæÄãµÄ JWT token£¬ÀýÈç: `Bearer your_token_here`"
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
+                    }
                 });
             });
             //Ìí¼Óhsts
@@ -96,7 +109,7 @@ namespace Api.Core
                 options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
             });
-            
+
             var app = builder.Build();
             ServiceLocator.SetServiceProvider(app.Services);
             app.UseRouting();
@@ -129,6 +142,6 @@ namespace Api.Core
             app.Run();
         }
 
-       
+
     }
 }

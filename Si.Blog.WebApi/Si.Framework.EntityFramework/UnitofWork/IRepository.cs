@@ -112,7 +112,5 @@ namespace Si.Framework.EntityFramework.UnitofWork
         /// <param name="predicate">条件表达式</param>
         /// <returns>符合条件的实体数量</returns>
         Task<int> CountAsync(Expression<Func<T, bool>> predicate = null);
-
-        Task<bool> SaveChangesAsync();
     }
 }

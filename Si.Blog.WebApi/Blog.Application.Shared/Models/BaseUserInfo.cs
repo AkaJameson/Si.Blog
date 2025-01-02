@@ -19,7 +19,7 @@ namespace Blog.Application.Shared.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public Gender Gender { get; set; }
-        public RoleEnum Role { get; set; }
+        public List<RoleEnum> UserRoles { get; set; }
     }
     /// <summary>
     /// 修改密码信息

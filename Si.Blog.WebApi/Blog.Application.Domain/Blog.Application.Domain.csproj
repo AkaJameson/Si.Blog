@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Blog.Application.Base\Blog.Application.Base.csproj" />
     <ProjectReference Include="..\Blog.Application.Shared\Blog.Application.Shared.csproj" />
     <ProjectReference Include="..\Si.Framework.DDDComm\Si.Framework.DDDComm.csproj" />
   </ItemGroup>

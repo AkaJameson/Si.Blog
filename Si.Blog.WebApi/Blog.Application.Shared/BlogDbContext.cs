@@ -3,6 +3,7 @@ using Blog.Application.Shared.EntityConfiguration;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Si.Framework.EntityFramework;
+using Si.Framework.Rbac.Configuration;
 using Si.Framework.Rbac.Entity;
 
 namespace Blog.Application.Shared
@@ -28,6 +29,7 @@ namespace Blog.Application.Shared
         public DbSet<Role> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new BlogCategoryConfiguration());
@@ -41,6 +43,7 @@ namespace Blog.Application.Shared
             modelBuilder.ApplyConfiguration(new RolePermissionConfiguration());
             modelBuilder.ApplyConfiguration(new TagConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

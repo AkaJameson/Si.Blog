@@ -3,7 +3,7 @@ using Serilog;
 using Serilog.Events;
 using System.Reflection;
 
-namespace Si.Framework.Serilog
+namespace Si.Framework.Base.Serilog
 {
     public class LoggerLib
     {
@@ -17,9 +17,9 @@ namespace Si.Framework.Serilog
                 .WriteTo.File(
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "logs", DateTime.Now.ToString("yyyy-MM-dd"), "Information-.log"),
                 restrictedToMinimumLevel: LogEventLevel.Information,
-                rollingInterval:RollingInterval.Day,
-                retainedFileCountLimit:10,
-                fileSizeLimitBytes:10485760,
+                rollingInterval: RollingInterval.Day,
+                retainedFileCountLimit: 10,
+                fileSizeLimitBytes: 10485760,
                 outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {Message}{NewLine}{Exception}"
                 )
                 .WriteTo.File(
@@ -63,6 +63,6 @@ namespace Si.Framework.Serilog
         {
             Log.CloseAndFlush();
         }
-       
+
     }
 }

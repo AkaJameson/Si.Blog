@@ -1,6 +1,6 @@
 ﻿using Serilog;
 
-namespace Si.Framework.Serilog
+namespace Si.Framework.Base.Serilog
 {
     public static class LogHub
     {

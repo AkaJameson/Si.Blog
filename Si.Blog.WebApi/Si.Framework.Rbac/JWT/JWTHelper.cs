@@ -19,14 +19,15 @@ namespace Si.Framework.Rbac.JWT
             Issuer = configuration["Jwt:Issuer"] ?? "Helloworld";
             Audience = configuration["Jwt:Audience"] ?? "Helloworld";
         }
-        public static string GenerateToken(int Roleid, List<Claim> claims)
+        public static string GenerateToken(List<int> Roleids, List<Claim> claims)
         {
             var expiration = DateTime.UtcNow.AddHours(1); // 1小时过期
             var key = new SymmetricSecurityKey(Convert.FromBase64String(SecretKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            if (!claims.Any(p => p.ValueType == ClaimTypes.Sid))
+            claims.RemoveAll(p => p.ValueType == ClaimTypes.Role);
+            foreach (var role in Roleids)
             {
-                claims.Add(new Claim(ClaimTypes.Sid, Roleid.ToString()));
+                claims.Add(new Claim(ClaimTypes.Role, role.ToString()));
             }
             var token = new JwtSecurityToken(
                 issuer: Issuer,

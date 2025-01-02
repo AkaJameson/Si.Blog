@@ -3,22 +3,26 @@ using Blog.Application.Shared.Entity;
 using Blog.Application.Shared.enums;
 using Blog.Application.Shared.Models;
 using Blog.Infrastructure.Base.ApiResult;
+using Si.Framework.Base.Extension;
 using Si.Framework.EntityFramework.UnitofWork;
 using Si.Framework.Rbac.Entity;
 using Si.Framework.Rbac.JWT;
-using Si.Framework.ToolKit.Extension;
 using System.Security.Claims;
 
 namespace Blog.Application.Domain.DomainServices
 {
     public class UserServiceImpl : IUserService
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Role> _roleRepository;
+        private readonly IRepository<UserRole> _userRoleRepository;
         public UserServiceImpl(IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             _userRepository = unitOfWork.GetRepository<User>();
             _roleRepository = unitOfWork.GetRepository<Role>();
+            _userRoleRepository = unitOfWork.GetRepository<UserRole>();
         }
         public async Task<ApiResult> Login(BaseUserInfo entity)
         {
@@ -31,14 +35,13 @@ namespace Blog.Application.Domain.DomainServices
             if (user == null)
                 return ResultHelper.Error(StatusCode.BadRequest, "用户名或密码错误");
             //获取用户角色
-            var role = await _roleRepository.SingleOrDefaultAsync(r => r.Id == user.Role.GetHashCode());
-            var _token = JWTHelper.GenerateToken(user.Id, new List<Claim>
+            var userRoles = await _userRoleRepository.FindAsync(u => u.UserId == user.Id);
+            var _token = JWTHelper.GenerateToken(userRoles.Select(ur => ur.RoleId).ToList(), new List<Claim>
             {
-                new Claim(ClaimTypes.Role,role.Id.ToString()),
+                new Claim(ClaimTypes.Sid,user.Id.ToString()),
                 new Claim(ClaimTypes.Email,user.Email??string.Empty),
                 new Claim(ClaimTypes.Gender,user.Gender.GetHashCode().ToString()),
                 new Claim(ClaimTypes.Name,user.UserName??string.Empty),
-                new Claim(ClaimTypes.Sid,user.Id.ToString())
             });
             return ResultHelper.Success(new
             {
@@ -48,20 +51,26 @@ namespace Blog.Application.Domain.DomainServices
         }
         public async Task<ApiResult> Register(UserRegisterInfo entity)
         {
-            await _userRepository.AddAsync(new User
+            var user = new User
             {
                 Account = entity.Account,
                 PasswordRsa = entity.Password.AESEncrypt(),
                 Email = entity.Email,
                 Gender = entity.Gender,
                 UserName = entity.Username,
-                Role = RoleEnum.User
+            };
+            //默认注册用户角色为普通用户
+            await _unitOfWork.ExecuteTransactionAsync(async () =>
+            {
+                await _userRepository.AddAsync(user);
+                await _userRoleRepository.AddAsync(new UserRole
+                {
+                    UserId = user.Id,
+                    RoleId = 1
+                });
             });
-            var flag = await _userRepository.SaveChangesAsync();
-            if (flag)
-                return ResultHelper.Success("注册成功");
-            else
-                return ResultHelper.Error(StatusCode.ServiceUnavailable, "操作失败，请联系管理员");
+            await _unitOfWork.CommitAsync();
+            return ResultHelper.Success("注册成功");
         }
 
     }

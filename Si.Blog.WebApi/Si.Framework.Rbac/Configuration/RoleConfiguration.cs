@@ -4,7 +4,7 @@ using Si.Framework.Rbac.Entity;
 
 namespace Blog.Application.Shared.EntityConfiguration
 {
-    internal class RoleConfiguration : IEntityTypeConfiguration<Role>
+    public class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {

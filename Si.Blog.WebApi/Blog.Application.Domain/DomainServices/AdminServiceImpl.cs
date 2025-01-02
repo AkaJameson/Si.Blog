@@ -1,11 +1,11 @@
 ﻿using Blog.Application.Domain.IDomainServices;
-using Blog.Application.Shared.Dtos;
 using Blog.Application.Shared.Entity;
 using Blog.Application.Shared.Models;
 using Blog.Infrastructure.Base.ApiResult;
 using Si.Framework.AutoMapper.MapServices;
+using Si.Framework.Base.Extension;
 using Si.Framework.EntityFramework.UnitofWork;
-using Si.Framework.ToolKit.Extension;
+using Si.Framework.Rbac.Entity;
 
 namespace Blog.Application.Domain.DomainServices
 {
@@ -21,28 +21,25 @@ namespace Blog.Application.Domain.DomainServices
         }
         public async Task<ApiResult> CreateUser(UserRegisterInfo userInfo)
         {
-            var newUser = new User
+            
+            await unitOfWork.ExecuteTransactionAsync(async () =>
             {
-                Account = userInfo.Account,
-                UserName = userInfo.Username,
-                PasswordRsa = userInfo.Password.AESEncrypt(),
-                Gender = userInfo.Gender,
-                Email = userInfo.Email,
-                Role = userInfo.Role,
-                CreateTime = DateTime.Now
-            };
-            var userRepository = unitOfWork.GetRepository<User>();
-            await userRepository.AddAsync(newUser);
-            var flag = await userRepository.SaveChangesAsync();
-            if(flag)
-            {
-                return ResultHelper.Success("创建成功");
-            }
-            else
-            {
-                return ResultHelper.Error(StatusCode.ServiceUnavailable,"创建失败");
-            }
-
+                var newUser = new User
+                {
+                    Account = userInfo.Account ?? string.Empty,
+                    UserName = userInfo.Username ?? string.Empty,
+                    PasswordRsa = userInfo.Password.AESEncrypt() ?? string.Empty,
+                    Gender = userInfo.Gender,
+                    CreateTime = DateTime.Now,
+                };
+                await unitOfWork.GetRepository<User>().AddAsync(newUser);
+                foreach(var roleId in userInfo.UserRoles)
+                {
+                    await unitOfWork.GetRepository<UserRole>().AddAsync(new UserRole { UserId = newUser.Id, RoleId = roleId.GetHashCode() });
+                }
+            });
+            await unitOfWork.CommitAsync();
+            return ResultHelper.Success("创建成功");
         }
     }
 }

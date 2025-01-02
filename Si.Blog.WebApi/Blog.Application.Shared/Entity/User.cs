@@ -1,18 +1,11 @@
 ﻿using Blog.Application.Shared.enums;
-using Si.Framework.EntityFramework.Abstraction;
+using Si.Framework.Rbac.Entity;
 
 namespace Blog.Application.Shared.Entity
 {
-    public class User: BaseEntity
+    public class User:BaseUser
     {
-        /// <summary>
-        /// 主键
-        /// </summary>
-        public int Id { get; set; }
-        /// <summary>
-        /// 用户名
-        /// </summary>
-        public string UserName { get; set; }
+       
         /// <summary>
         /// 性别
         /// </summary>
@@ -34,17 +27,11 @@ namespace Blog.Application.Shared.Entity
         /// </summary>
         public string? Stamp { get; set; }
         /// <summary>
-        /// 角色
-        /// </summary>
-        public RoleEnum Role { get; set; }
-        /// <summary>
         /// 邮箱
         /// </summary>
         public string? Email { get; set; }
         public string? Reserve1 { get; set; }
         public string? Reserve2 { get; set; }
         public string? Reserve3 { get; set; }
-        public DateTime CreateTime { get; set; }
-
     }
 }

@@ -20,12 +20,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Blog.Application.WebApi\Blog.Application.WebApi.csproj" />
     <ProjectReference Include="..\Blog.Application\Blog.Application.csproj" />
-    <ProjectReference Include="..\Blog.infrastructure.Security\Blog.Infrastructure.Security.csproj" />
     <ProjectReference Include="..\Si.Framework.AutoMapper\Si.Framework.AutoMapper.csproj" />
     <ProjectReference Include="..\Si.Framework.Base\Si.Framework.Base.csproj" />
     <ProjectReference Include="..\Si.Framework.MemoryCache\Si.Framework.MemoryCache.csproj" />
     <ProjectReference Include="..\Si.Framework.Rbac\Si.Framework.Rbac.csproj" />
-    <ProjectReference Include="..\Si.Framework.Serilog\Si.Framework.Serilog.csproj" />
   </ItemGroup>
 
 </Project>

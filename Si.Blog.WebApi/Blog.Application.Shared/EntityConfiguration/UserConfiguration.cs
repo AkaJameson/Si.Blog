@@ -16,7 +16,6 @@ namespace Blog.Application.Shared.EntityConfiguration
             builder.Property(x => x.PasswordRsa).HasMaxLength(200).IsRequired();
             builder.Property(x => x.Gender).IsRequired();
             builder.Property(x => x.Stamp).HasMaxLength(200);
-            builder.Property(x => x.Role).IsRequired();
             builder.Property(x => x.Email).HasMaxLength(100);
         }
     }

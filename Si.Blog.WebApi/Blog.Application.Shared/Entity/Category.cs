@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Si.Framework.EntityFramework.Abstraction;
+﻿using Si.Framework.EntityFramework.Abstraction;
 
 namespace Blog.Application.Shared.Entity
 {

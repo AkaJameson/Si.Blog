@@ -1,5 +1,4 @@
-﻿using Blog.Infrastructure.Base.ApiResult;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
 namespace Si.Framework.Rbac.Authorication
@@ -15,9 +14,10 @@ namespace Si.Framework.Rbac.Authorication
         {
             if (httpContext.Response.StatusCode == 403)
             {
+                httpContext.Response.StatusCode = 200;
                 httpContext.Response.ContentType = "application/json";
                 await httpContext.Response.WriteAsync
-                    (JsonConvert.SerializeObject(ResultHelper.Error(StatusCode.Unauthorized, "权限不足，请联系管理员!")));
+                    (JsonConvert.SerializeObject(new { code = 403, message = "权限不足，请联系管理员!" }));
             }
             await _next(httpContext);
         }

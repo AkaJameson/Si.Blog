@@ -2,12 +2,11 @@
 
 namespace Si.Framework.Rbac.Entity
 {
-    public class Role: BaseEntity
+    public class BaseUser : BaseEntity
     {
         public int Id { get; set; }
-        public string RoleName { get; set; }
-        public string Description { get; set; }
+        public string UserName { get; set; }
         public DateTime CreateTime { get; set; }
-
+        public string Description { get; set; }
     }
 }

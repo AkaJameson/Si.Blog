@@ -1,5 +1,4 @@
-﻿using Blog.Application.Shared.Dtos;
-using Blog.Application.Shared.Models;
+﻿using Blog.Application.Shared.Models;
 using Blog.Infrastructure.Base.ApiResult;
 
 namespace Blog.Application.Domain.IDomainServices

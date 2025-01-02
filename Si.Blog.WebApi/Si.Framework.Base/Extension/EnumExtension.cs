@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
-namespace Si.Framework.ToolKit.Extension
+namespace Si.Framework.Base.Extension
 {
     public static class EnumExtension
     {

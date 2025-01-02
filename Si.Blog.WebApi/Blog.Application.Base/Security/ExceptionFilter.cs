@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Si.Framework.Base.Abstraction;
-using Si.Framework.Serilog;
+using Si.Framework.Base.Serilog;
 using System.Net;
 
 namespace Blog.Infrastructure.Security

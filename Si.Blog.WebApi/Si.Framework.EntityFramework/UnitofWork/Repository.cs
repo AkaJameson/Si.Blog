@@ -151,13 +151,5 @@ namespace Si.Framework.EntityFramework.UnitofWork
             _dbSet.UpdateRange(entities);
             return Task.CompletedTask;
         }
-
-        public async Task<bool> SaveChangesAsync()
-        {
-            if (await _dbContext.SaveChangesAsync() > 0)
-                return true;
-            else
-                return false;
-        }
     }
 }

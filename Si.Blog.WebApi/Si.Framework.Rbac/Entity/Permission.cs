@@ -1,6 +1,8 @@
-﻿namespace Si.Framework.Rbac.Entity
+﻿using Si.Framework.EntityFramework.Abstraction;
+
+namespace Si.Framework.Rbac.Entity
 {
-    public class Permission
+    public class Permission:BaseEntity
     {
         public int Id { get; set; }
         public string PermissionName { get; set; }
