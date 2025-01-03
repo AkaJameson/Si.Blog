@@ -1,6 +1,8 @@
 using Blog.Application.Shared;
+using Blog.Application.Shared.enums;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -10,6 +12,8 @@ using Si.Framework.Base.Serilog;
 using Si.Framework.Base.Utility;
 using Si.Framework.Rbac.Authorication;
 using Si.Framework.Rbac.JWT;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 namespace Api.Core
 {
     public class Program
@@ -23,11 +27,8 @@ namespace Api.Core
             builder.Configuration.AddSettings();
             builder.Logging.ClearProviders();
             builder.Logging.AddSerilog(Log.Logger);
-            builder.WebHost.ConfigureKestrel(options =>
-            {
-                var section = builder.Configuration.GetSection("Kestrel");
-                options.Configure(section);
-            });
+            //添加Kestrel配置
+            builder.UseKestrel();
             // 注册 Swagger 生成器服务
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
@@ -68,7 +69,8 @@ namespace Api.Core
                 options.IncludeSubDomains = true;
                 options.MaxAge = TimeSpan.FromDays(60);
             });
-            builder.Services.AddDbContext<BlogDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<BlogDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
             //注册上下文访问器
             builder.Services.AddHttpContextAccessor();
             //配置跨域
@@ -94,11 +96,11 @@ namespace Api.Core
                 using var blogDbContext = new BlogDbContext(new DbContextOptionsBuilder<BlogDbContext>().Options, ServiceLocator.GetConfiguration()["ConnectionStrings:DefaultConnection"]);
                 RolePermissionMapper.RegisterRolePermission<BlogDbContext>(blogDbContext);
                 //管理员
-                options.AddPolicy("Admin", policy => RolePermissionMapper.GetPermissionForRole("0").ForEach(p => policy.Requirements.Add(new PermissionRequirement(p))));
+                options.AddPolicy("Admin", policy => RolePermissionMapper.GetPermissionForRole(RoleEnum.Admin.GetHashCode().ToString()).ForEach(p => policy.Requirements.Add(new PermissionRequirement(p))));
                 //访客
-                options.AddPolicy("Guest", policy => RolePermissionMapper.GetPermissionForRole("1").ForEach(p => policy.Requirements.Add(new PermissionRequirement(p))));
+                options.AddPolicy("Guest", policy => RolePermissionMapper.GetPermissionForRole(RoleEnum.Guest.GetHashCode().ToString()).ForEach(p => policy.Requirements.Add(new PermissionRequirement(p))));
                 //普通用户
-                options.AddPolicy("User", policy => RolePermissionMapper.GetPermissionForRole("2").ForEach(p => policy.Requirements.Add(new PermissionRequirement(p))));
+                options.AddPolicy("User", policy => RolePermissionMapper.GetPermissionForRole(RoleEnum.User.GetHashCode().ToString()).ForEach(p => policy.Requirements.Add(new PermissionRequirement(p))));
             });
             builder.Services.AddControllers(options =>
             {
@@ -116,7 +118,6 @@ namespace Api.Core
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseCors("CorPolicy");
-            app.UseHttpsRedirection();
             app.UseMiddleware<AuthorizeMiddleware>();
             var staticFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "wwwroot");
             Directory.CreateDirectory(staticFilePath);

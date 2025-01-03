@@ -66,7 +66,7 @@ namespace Blog.Application.Domain.DomainServices
                 await _userRoleRepository.AddAsync(new UserRole
                 {
                     UserId = user.Id,
-                    RoleId = 1
+                    RoleId = RoleEnum.User.GetHashCode() //普通用户角色ID
                 });
             });
             await _unitOfWork.CommitAsync();

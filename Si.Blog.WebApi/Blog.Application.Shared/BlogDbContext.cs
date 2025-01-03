@@ -49,7 +49,7 @@ namespace Blog.Application.Shared
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite(connectionString);
+                optionsBuilder.UseMySql(connectionString,ServerVersion.AutoDetect(connectionString));
             }
         }
     }

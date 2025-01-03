@@ -13,5 +13,9 @@
 	  <ProjectReference Include="..\Si.Framework.EntityFramework\Si.Framework.EntityFramework.csproj" />
 	  <ProjectReference Include="..\Si.Framework.Rbac\Si.Framework.Rbac.csproj" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+	  <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SqlQuery\" />
   </ItemGroup>
 </Project>
