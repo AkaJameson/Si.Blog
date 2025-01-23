@@ -53,3 +53,5 @@
 /Si.Blog.WebApi/Blog.infrastructure.Security/bin/Debug/net8.0
 /Si.Blog.WebApi/Si.Framework.Rbac/bin/Debug/net8.0
 /Si.Blog.WebApi/Si.Framework.Rbac/obj
+/Si.Blog.WebApi/Blog.Application.Contracts/bin/Debug/net8.0
+/Si.Blog.WebApi/Blog.Application/bin/Debug/net8.0
