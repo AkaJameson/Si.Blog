@@ -7,12 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Blog.infrastructure.Rbac\Blog.Infrastructure.Rbac.csproj" />
+    <ProjectReference Include="..\Si.Framework.AutoMapper\Si.Framework.AutoMapper.csproj" />
     <ProjectReference Include="..\Si.Framework.EntityFramework\Si.Framework.EntityFramework.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="EntityDto\" />
+    <ProjectReference Include="..\Si.Framework.Rbac\Si.Framework.Rbac.csproj" />
   </ItemGroup>
 
 </Project>

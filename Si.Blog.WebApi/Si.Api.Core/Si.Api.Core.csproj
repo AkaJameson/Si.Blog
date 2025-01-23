@@ -9,13 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Blog.infrastructure.Rbac\Blog.Infrastructure.Rbac.csproj" />
+    <ProjectReference Include="..\Blog.Application.Database\Blog.Application.Database.csproj" />
+    <ProjectReference Include="..\Blog.infrastructure.Security\Blog.Infrastructure.Security.csproj" />
     <ProjectReference Include="..\Si.Framework.AutoMapper\Si.Framework.AutoMapper.csproj" />
     <ProjectReference Include="..\Si.Framework.Base\Si.Framework.Base.csproj" />
+    <ProjectReference Include="..\Si.Framework.Rbac\Si.Framework.Rbac.csproj" />
     <ProjectReference Include="..\Si.Framework.Serilog\Si.Framework.Serilog.csproj" />
   </ItemGroup>
 

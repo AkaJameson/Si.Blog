@@ -10,6 +10,6 @@
 		<PackageReference Include="SqlSugarCore" Version="5.1.4.171" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Si.Application.Base\Si.Framework.Base.csproj" />
+	  <ProjectReference Include="..\Si.Framework.Base\Si.Framework.Base.csproj" />
 	</ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿using Blog.Infrastructure.Rbac.enums;
+﻿using Blog.Infrastructure.Rbac.Entity;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
@@ -16,19 +16,14 @@ namespace Blog.Infrastructure.Rbac.Authorication
                 return Task.CompletedTask;
             }
 
-            var roles = user.Claims.Where(C => C.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
+            var rolesId = user.Claims.Where(C => C.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
             var userPermissions = new List<Permission>();
-            foreach (var role in roles)
+            foreach (var role in rolesId)
             {
-                if (Enum.TryParse(role, out Role permission))
-                {
-                    if (Enum.TryParse(role, out Role parsedRole))
-                    {
-                        userPermissions.AddRange(RolePermissionMapper.GetPermissionForRole(parsedRole));
-                    }
-                }
+               
+                var rolePermissions = RolePermissionMapper.GetPermissionForRole(role);
             }
-            if (userPermissions.Contains(requirement.RequiredPermission))
+            if (userPermissions.Any(p=>p.Id == requirement.RequiredPermissionId))
             {
                 context.Succeed(requirement);
             }

@@ -14,13 +14,6 @@ namespace Blog.Infrastructure.Rbac.JWT
         private static string _secretKey;
         private static string _issuer;
         private static string _audience;
-        static JWTHelper()
-        {
-            var jwtConfit = (IConfiguration)ServiceLocator.GetServiceProvider().GetService(typeof(IConfiguration));
-            _secretKey = jwtConfit["JWT:SecretKey"];
-            _issuer = jwtConfit["JWT:Issuer"];
-            _audience = jwtConfit["JWT:Audience"];
-        }
         public static string GenerateToken(string username, List<Claim> claims = null, int expireMinutes = 30)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
@@ -40,8 +33,11 @@ namespace Blog.Infrastructure.Rbac.JWT
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public static void AddJWTBearer(this IServiceCollection services)
+        public static void AddJWTBearer(this IServiceCollection services,IConfiguration configuration)
         {
+            _secretKey = configuration["JWT:SecretKey"];
+            _issuer = configuration["JWT:Issuer"];
+            _audience = configuration["JWT:Audience"];
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {

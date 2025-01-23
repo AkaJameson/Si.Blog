@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Configuration;
 using Si.Framework.Base.Abstraction;
 using Si.Framework.ToolKit;
 using Si.Framework.ToolKit.Extension;
 
 namespace Si.Framework.Base
 {
-    public static class ComponentManager
+    public static class WebPipeExtension
     {
         public static MvcOptions AddFilter(MvcOptions options)
         {
@@ -19,6 +20,12 @@ namespace Si.Framework.Base
                 options.Filters.Add((IFilterMetadata)filter);
             }
             return options;
+        }
+
+        public static void AddSettings(this ConfigurationManager configuration)
+        {
+            configuration.AddJsonFile($"{Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json")}"
+                , optional: true, reloadOnChange: true);
         }
     }
 }

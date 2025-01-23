@@ -1,8 +1,4 @@
-﻿using Blog.Infrastructure.Rbac.enums;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Blog.Application.Database.Entity
+﻿namespace Blog.Application.Database.Entity
 {
     public class User
     {
@@ -33,24 +29,15 @@ namespace Blog.Application.Database.Entity
         /// <summary>
         /// 角色
         /// </summary>
-        public Role Role { get; set; }
+        public int RoleId { get; set; }
         /// <summary>
         /// 邮箱
         /// </summary>
         public string Email { get; set; }
-    }
-    public class UserMap : IEntityTypeConfiguration<User>
-    {
-        public void Configure(EntityTypeBuilder<User> builder)
-        {
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.UserName).HasMaxLength(50).IsRequired();
-            builder.Property(x => x.AvatarPath).HasMaxLength(200);
-            builder.Property(x => x.Account).HasMaxLength(50).IsRequired();
-            builder.Property(x => x.PasswordRsa).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.Stamp).HasMaxLength(200);
-            builder.Property(x => x.Role).IsRequired();
-            builder.Property(x => x.Email).HasMaxLength(100);
-        }
+        public string Reserve1 { get; set; }
+        public string Reserve2 { get; set; }
+        public string Reserve3 { get; set; }
+        public DateTime CreateTime { get; set; }
+
     }
 }

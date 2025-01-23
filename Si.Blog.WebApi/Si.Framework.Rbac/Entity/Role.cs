@@ -1,10 +1,11 @@
-﻿namespace Blog.Application.Database.Entity
+﻿namespace Blog.Infrastructure.Rbac.Entity
 {
-    public class Tag
+    public class Role
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string RoleName { get; set; }
         public string Description { get; set; }
         public DateTime CreateTime { get; set; }
+        
     }
 }
