@@ -45,3 +45,11 @@
 /Si.Blog.WebApi/Si.Framework.AutoMapper/obj
 /Si.Blog.WebApi/Si.Framework.Serilog/bin/Debug/net8.0
 /Si.Blog.WebApi/Si.Framework.Serilog/obj
+/Si.Blog.WebApi/Blog.Application.Database/bin/Debug/net8.0
+/Si.Blog.WebApi/Blog.Application.Database/Migrations
+/Si.Blog.WebApi/Blog.Application.Shared/bin/Debug/net8.0
+/Si.Blog.WebApi/Blog.Application.WebApi/bin/Debug/net8.0
+/Si.Blog.WebApi/Blog.Application.WebApi/bin/Debug/net8.0/Blog.Application.WebApi.deps.json
+/Si.Blog.WebApi/Blog.infrastructure.Security/bin/Debug/net8.0
+/Si.Blog.WebApi/Si.Framework.Rbac/bin/Debug/net8.0
+/Si.Blog.WebApi/Si.Framework.Rbac/obj
